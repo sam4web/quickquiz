@@ -1,0 +1,151 @@
+$bar-gap: 6.4px;
+
+.header {
+  .section-container {
+    @include flex;
+    padding: 5px 15px;
+
+    @include responsive_small {
+      padding: 5px 10px;
+    }
+  }
+
+  .logo-container {
+    width: 120px;
+
+    @include responsive_small {
+      width: 90px;
+    }
+  }
+
+  .nav {
+    &-list {
+      @include flex;
+    }
+
+    &-list-item {
+      font-family: 'Nunito';
+      padding: 0px 15px;
+      color: $dark-secondary;
+      font-weight: 500;
+      line-height: 22px;
+
+      @include responsive_medium {
+        padding: 0px 10px;
+      }
+
+      &.nolink {
+        border-right: 2px solid $dark-secondary;
+        @include responsive_small {
+          display: none;
+        }
+      }
+    }
+
+    &-link {
+      color: $primary-color;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        background-color: $primary-color;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 40px;
+        transition: 100ms width linear;
+      }
+
+      &:hover {
+        &::after {
+          width: 50%;
+        }
+      }
+    }
+
+    &-toggle-btn {
+      @include flex;
+      cursor: pointer;
+      height: 20px;
+      z-index: 200;
+
+      .bar {
+        position: relative;
+        width: 20px;
+        height: 2.3px;
+        background-color: $primary-color;
+        border-radius: 100px;
+        transition: $global-transition;
+
+        &::after,
+        &::before {
+          content: '';
+          width: inherit;
+          height: 2.5px;
+          background-color: inherit;
+          border-radius: inherit;
+          position: absolute;
+          left: 0;
+          transition: inherit;
+        }
+
+        &::after {
+          top: $bar-gap;
+        }
+
+        &::before {
+          bottom: $bar-gap;
+        }
+      }
+    }
+  }
+
+  .side-nav {
+    z-index: 100;
+    // display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    &-list {
+    }
+
+    &-list-item {
+      font-weight: 500;
+      line-height: 22px;
+    }
+  }
+}
+
+.active-nav {
+  &::before {
+    z-index: 100;
+    background-color: rgba($dark, 0.7);
+  }
+
+  .nav-toggle-btn {
+    .bar {
+      width: 25px;
+      height: 3px;
+      background-color: $light;
+      transform: rotate(135deg);
+
+      &::before {
+        height: inherit;
+        top: 0;
+        transform: rotate(90deg);
+      }
+
+      &::after {
+        display: none;
+      }
+    }
+  }
+
+  .side-nav {
+    display: block;
+  }
+}
