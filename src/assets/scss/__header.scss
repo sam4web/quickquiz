@@ -3,7 +3,7 @@ $bar-gap: 6.4px;
 .header {
   .section-container {
     @include flex;
-    padding: 5px 15px;
+    padding: 7px 15px;
 
     @include responsive_small {
       padding: 5px 10px;
@@ -70,7 +70,6 @@ $bar-gap: 6.4px;
       @include flex;
       cursor: pointer;
       height: 20px;
-      z-index: 200;
 
       .bar {
         position: relative;
@@ -105,17 +104,79 @@ $bar-gap: 6.4px;
 
   .side-nav {
     z-index: 100;
-    // display: none;
+    @include flex(space-between);
+    flex-direction: column;
+    height: 100vh;
+    width: 25%;
+    background-color: $primary-color;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+      rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
     position: absolute;
+    text-align: right;
     top: 0;
-    left: 0;
+    right: 0;
+    padding: 40px 60px;
+    transform: translateX(100%);
+    transition: $global-transition, transform 100ms linear;
 
-    &-list {
+    @include responsive_large {
+      width: 40%;
+      padding: 40px 40px;
     }
 
-    &-list-item {
-      font-weight: 500;
+    @include responsive_small {
+      width: 60%;
+    }
+
+    &-list {
+      max-width: 200px;
+      margin-left: auto;
+    }
+
+    &-link {
+      font-size: 18px;
+      @include flex(right, center);
+      gap: 10px;
+      color: $light;
       line-height: 22px;
+      margin: 18px 0;
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: -13px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0%;
+        height: 3px;
+        background-color: $light;
+        transition: inherit;
+        border-radius: 100px;
+      }
+
+      &:hover {
+        &::after {
+          width: 10px;
+        }
+      }
+    }
+  }
+}
+
+.header.home {
+  .section-container {
+    align-items: flex-start;
+  }
+
+  .logo-container {
+    width: 180px;
+  }
+
+  .nav {
+    padding-top: 20px;
+    &-list-item {
+      display: none;
     }
   }
 }
@@ -126,26 +187,7 @@ $bar-gap: 6.4px;
     background-color: rgba($dark, 0.7);
   }
 
-  .nav-toggle-btn {
-    .bar {
-      width: 25px;
-      height: 3px;
-      background-color: $light;
-      transform: rotate(135deg);
-
-      &::before {
-        height: inherit;
-        top: 0;
-        transform: rotate(90deg);
-      }
-
-      &::after {
-        display: none;
-      }
-    }
-  }
-
   .side-nav {
-    display: block;
+    transform: translateX(0);
   }
 }

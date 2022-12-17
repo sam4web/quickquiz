@@ -33,6 +33,7 @@ body {
   font-size: 18px;
   line-height: 24px;
   position: relative;
+  overflow-x: hidden;
   font-family: 'Varela Round';
 
   &::before {
@@ -87,5 +88,32 @@ a {
 
   @include responsive_small {
     padding: 20px 10px;
+  }
+}
+
+.btn {
+  display: block;
+  max-width: 145px;
+  width: 100%;
+  background-color: $dark;
+  color: $light;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 22px;
+  border: 2px solid transparent;
+  padding: 10px 5px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: rgba($dark, 0.55);
+    pointer-events: none;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    border-color: $dark;
+    color: $dark;
+    background-color: transparent;
   }
 }

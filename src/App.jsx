@@ -20,13 +20,10 @@ export default function App() {
 
   return (
     <>
-      {/* <Routes>
+      <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/*' element={<NavRoutes />}></Route>
-      </Routes> */}
-
-      {/* <Navbar type='home-page' /> */}
-      <Navbar />
+      </Routes>
     </>
   );
 }
