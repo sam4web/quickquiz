@@ -92,8 +92,9 @@ a {
 }
 
 .btn {
-  display: block;
-  max-width: 145px;
+  display: inline-block;
+  min-width: 145px;
+  max-width: fit-content;
   width: 100%;
   background-color: $dark;
   color: $light;
@@ -101,7 +102,7 @@ a {
   font-size: inherit;
   line-height: 22px;
   border: 2px solid transparent;
-  padding: 10px 5px;
+  padding: 10px 15px;
   border-radius: 10px;
   cursor: pointer;
 

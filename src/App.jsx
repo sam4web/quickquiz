@@ -3,7 +3,6 @@ import WebFont from 'webfontloader';
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import NavRoutes from './pages/NavRoutes';
-import Navbar from './components/Header';
 
 export default function App() {
   useEffect(() => {

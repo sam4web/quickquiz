@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { nanoid } from 'nanoid';
-import Navbar from '../components/Header';
+import Header from '../components/Header';
+import Game from '../components/Game';
 
 export default function Home() {
   const [categories, setCategories] = useState([]);
   const [selectedItem, setSelectedItem] = useState({});
   const [gameStarted, setGameStarted] = useState(false);
+  const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
     getCategories();
@@ -38,15 +39,31 @@ export default function Home() {
             }
           });
 
-          categories_list.push({ name: itemName, select: false, id: nanoid() });
+          categories_list.push({ name: itemName, select: false, id: item.id });
         });
         setCategories(categories_list);
       });
   };
 
   const startGame = () => {
-    setGameStarted((prevGameStarted) => !prevGameStarted);
-    console.log(selectedItem);
+    fetch(
+      `https://opentdb.com/api.php?amount=10&category=${selectedItem.id}&type=multiple`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        let questionList = [];
+        data.results.map((item) => {
+          let questionObj = {
+            category: selectedItem.name,
+            question: item.question,
+            correctAns: item.correct_answer,
+            incorrectAns: item.incorrect_answers,
+          };
+          questionList.push(questionObj);
+        });
+        setQuestions(questionList);
+        setGameStarted((prevGameStarted) => !prevGameStarted);
+      });
   };
 
   const selectCategory = (id) => {
@@ -61,8 +78,8 @@ export default function Home() {
 
   function HomeScreen() {
     return (
-      <>
-        <Navbar type={'home-page'} />
+      <div className='home-section'>
+        <Header type={'home-page'} />
 
         <h2 className='heading'>
           Choose one from the categories below and see how many questions you
@@ -90,15 +107,9 @@ export default function Home() {
         >
           Start Game
         </button>
-      </>
+      </div>
     );
   }
 
-  return (
-    <>
-      <div className='home-page'>
-        {gameStarted ? <HomeScreen /> : <h1>Game Started</h1>}
-      </div>
-    </>
-  );
+  return <>{gameStarted ? <Game questions={questions} /> : <HomeScreen />}</>;
 }

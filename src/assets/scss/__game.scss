@@ -1,0 +1,108 @@
+// styles for game section
+.game-section {
+  text-align: center;
+
+  h2 {
+    font-size: inherit;
+  }
+
+  .category {
+    text-transform: uppercase;
+    color: $primary-color;
+    margin-bottom: 15px;
+  }
+
+  .index {
+    color: $grey;
+    font-size: 15px;
+  }
+
+  .question {
+    margin-top: 10px;
+    margin-bottom: 60px;
+    font-size: 20px;
+    color: $dark-secondary;
+  }
+
+  .options {
+    margin: 0 auto;
+    text-align: left;
+    max-width: 800px;
+    width: 100%;
+  }
+
+  .option {
+    @include flex(left);
+    font-family: 'Nunito';
+    background-color: rgba($grey, 0.45);
+    padding: 10px 20px;
+    margin: 15px auto;
+    border: 3px dashed transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    gap: 13px;
+
+    .radio-dot {
+      padding: 8px;
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba($dark-secondary, 0.5);
+      border-radius: 40px;
+      position: relative;
+
+      &::before {
+        content: '';
+        width: 9px;
+        height: 9px;
+        position: absolute;
+        border-radius: inherit;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        background-color: transparent;
+        transition: inherit;
+      }
+    }
+
+    &:hover,
+    &.select {
+      border-color: $primary-color;
+      background-color: rgba($primary-color, 0.1);
+
+      .radio-dot {
+        border-color: $primary-color;
+        &::before {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+
+  .button-container {
+    margin-top: 45px;
+    @include flex(center);
+    gap: 25px;
+
+    .btn {
+      padding: 10px;
+      border-radius: 20px;
+      @include flex(center);
+      max-width: 230px;
+      gap: 5px;
+      border-color: transparent !important;
+      color: $dark;
+
+      svg {
+        font-size: 20px;
+      }
+
+      &.prev {
+        background-color: $grey;
+      }
+
+      &.next {
+        background-color: $primary-color;
+      }
+    }
+  }
+}
