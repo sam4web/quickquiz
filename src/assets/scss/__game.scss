@@ -10,6 +10,13 @@
     text-transform: uppercase;
     color: $primary-color;
     margin-bottom: 15px;
+    line-height: 26px;
+
+    @include responsive_medium {
+      font-size: 16px;
+      line-height: 18px;
+      margin-bottom: 5px;
+    }
   }
 
   .index {
@@ -22,8 +29,15 @@
     margin: 0 auto;
     margin-top: 10px;
     font-size: 20px;
+    line-height: 26px;
     color: $dark-secondary;
     height: 90px;
+
+    @include responsive_medium {
+      font-size: 18px;
+      line-height: 22px;
+      max-width: 600px;
+    }
   }
 
   .options {
@@ -31,6 +45,10 @@
     text-align: left;
     max-width: 800px;
     width: 100%;
+
+    @include responsive_medium {
+      max-width: 550px;
+    }
   }
 
   .option {
@@ -67,7 +85,7 @@
     }
 
     &:hover,
-    &.select {
+    &.selected {
       border-color: $primary-color;
       background-color: rgba($primary-color, 0.1);
 
@@ -85,14 +103,37 @@
     @include flex(center);
     gap: 25px;
 
+    @include responsive_small {
+      margin-top: 30px;
+      gap: 10px;
+    }
+
     .btn {
       padding: 15px 10px;
-      border-radius: 20px;
+      border-radius: 10px;
       @include flex(center);
       max-width: 230px;
       gap: 5px;
-      border-color: transparent !important;
       color: $dark;
+      border-color: transparent !important;
+      transform: translate(0) !important;
+
+      @include responsive_medium {
+        padding: 10px 5px;
+      }
+
+      @include responsive_small {
+        max-width: fit-content;
+        &-text {
+          display: none;
+        }
+      }
+
+      &:hover,
+      &:active {
+        box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px,
+          rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      }
 
       svg {
         font-size: 20px;
@@ -104,6 +145,10 @@
 
       &.next {
         background-color: $primary-color;
+      }
+
+      &:disabled {
+        opacity: 0.5;
       }
     }
   }

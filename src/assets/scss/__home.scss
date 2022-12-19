@@ -3,12 +3,25 @@
   text-align: center;
 
   .heading {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 22px;
     line-height: 28px;
     text-align: center;
     max-width: 750px;
     margin: 60px auto;
+    margin-top: 0;
+
+    @include responsive_medium {
+      font-size: 20px;
+      line-height: 25px;
+      margin: 35px auto;
+      margin-top: 0;
+    }
+
+    @include responsive_small {
+      font-size: 18px;
+      line-height: 22px;
+    }
   }
 
   .categories-container {
@@ -17,6 +30,10 @@
     gap: 10px;
     max-width: 800px;
     margin: 30px auto;
+
+    @include responsive_small {
+      gap: 8px;
+    }
   }
 
   .category {
@@ -24,6 +41,14 @@
     background-color: $primary-color;
     border-radius: 5px;
     cursor: pointer;
+
+    @include responsive_medium {
+      padding: 5px 15px;
+    }
+
+    @include responsive_small {
+      padding: 4px 10px;
+    }
 
     &:hover,
     &.select {

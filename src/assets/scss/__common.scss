@@ -2,7 +2,7 @@
 
 $global-transition: 150ms color linear, 200ms background-color ease-in-out,
   150ms width linear, 200ms border-color linear, transform 200ms linear,
-  margin 220ms linear, 150ms opacity linear;
+  margin 220ms linear, 150ms opacity linear, 140ms box-shadow linear;
 
 * {
   margin: 0;
@@ -106,9 +106,16 @@ a {
   border-radius: 10px;
   cursor: pointer;
 
+  @include responsive_medium {
+    padding: 5px;
+  }
+
   &:disabled {
-    background-color: rgba($dark, 0.55);
-    pointer-events: none;
+    background-color: rgba($dark, 0.55) !important;
+    cursor: no-drop !important;
+    color: $light !important;
+    border-color: transparent !important;
+    transform: translate(0) !important;
   }
 
   &:hover {

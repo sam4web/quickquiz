@@ -164,6 +164,7 @@ $bar-gap: 6.4px;
   }
 }
 
+// styling for header at home page
 .header.home {
   .section-container {
     align-items: flex-start;
@@ -171,6 +172,14 @@ $bar-gap: 6.4px;
 
   .logo-container {
     width: 180px;
+
+    @include responsive_medium {
+      width: 150px;
+    }
+
+    @include responsive_small {
+      width: 130px;
+    }
   }
 
   .nav {

@@ -108,32 +108,34 @@ export default function Home() {
       <div className='home-section'>
         <Header type={'home-page'} />
 
-        <h2 className='heading'>
-          Choose one from the category below and see how many questions you can
-          answer correctly out of 10 questions!
-        </h2>
+        <div className='section-container'>
+          <h2 className='heading'>
+            Choose one from the category below and see how many questions you
+            can answer correctly out of 10 questions!
+          </h2>
 
-        <div className='categories-container'>
-          {categoryList.map((category) => (
-            <div
-              className={`category ${category.select ? 'select' : ''}`}
-              key={category.id}
-              onClick={() => {
-                selectCategory(category.id);
-              }}
-            >
-              {category.name}
-            </div>
-          ))}
+          <div className='categories-container'>
+            {categoryList.map((category) => (
+              <div
+                className={`category ${category.select ? 'select' : ''}`}
+                key={category.id}
+                onClick={() => {
+                  selectCategory(category.id);
+                }}
+              >
+                {category.name}
+              </div>
+            ))}
+          </div>
+
+          <button
+            className='btn'
+            disabled={Object.keys(selectedCategory).length === 0}
+            onClick={startGame}
+          >
+            Start Game
+          </button>
         </div>
-
-        <button
-          className='btn'
-          disabled={Object.keys(selectedCategory).length === 0}
-          onClick={startGame}
-        >
-          Start Game
-        </button>
       </div>
     );
   }

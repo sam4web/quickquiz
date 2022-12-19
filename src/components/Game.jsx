@@ -5,7 +5,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export default function Game({ questions, category }) {
   const [answers, setAnswers] = useState([]);
-  const [questionIdx, setQuestionIdx] = useState(1);
+  const [questionIdx, setQuestionIdx] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(
     questions[questionIdx]
   );
@@ -22,47 +22,50 @@ export default function Game({ questions, category }) {
       <div className='game-section'>
         <Header />
 
-        <h2 className='category'>category: {category}</h2>
+        <div className='section-container'>
+          <h2 className='category'>category: {category}</h2>
 
-        <div className='index'>{questionIdx + 1} / 10</div>
-        <h2 className='question'>{currentQuestion.question}</h2>
+          <div className='index'>{questionIdx + 1} / 10</div>
+          <h2 className='question'>{currentQuestion.question}</h2>
 
-        <ul className='options'>
-          <li className='option select'>
-            <div className='radio-dot'></div> Morris Coleman
-          </li>
-          <li className='option'>
-            <div className='radio-dot'></div> Carl Myers
-          </li>
-          <li className='option'>
-            <div className='radio-dot'></div> Maurice Micklewhite
-          </li>
-          <li className='option'>
-            <div className='radio-dot'></div> Martin Michaels
-          </li>
-        </ul>
+          <ul className='options'>
+            <li className='option selected'>
+              <div className='radio-dot'></div> Morris Coleman
+            </li>
+            <li className='option'>
+              <div className='radio-dot'></div> Carl Myers
+            </li>
+            <li className='option'>
+              <div className='radio-dot'></div> Maurice Micklewhite
+            </li>
+            <li className='option'>
+              <div className='radio-dot'></div> Martin Michaels
+            </li>
+          </ul>
 
-        <div className='button-container'>
-          <button
-            className='btn prev'
-            disabled={questionIdx <= 0}
-            onClick={() => {
-              setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx -= 1));
-            }}
-          >
-            <IoIosArrowBack />
-            Previous Question
-          </button>
-          <button
-            className='btn next'
-            disabled={questionIdx >= questions.length - 1}
-            onClick={() => {
-              setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx += 1));
-            }}
-          >
-            Next Question
-            <IoIosArrowForward />
-          </button>
+          <div className='button-container'>
+            <button
+              className='btn prev'
+              disabled={questionIdx <= 0}
+              onClick={() => {
+                setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx -= 1));
+              }}
+            >
+              <IoIosArrowBack />
+              <span className='btn-text'>Previous Question</span>
+            </button>
+            <button
+              className='btn next'
+              disabled={questionIdx >= questions.length - 1}
+              onClick={() => {
+                setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx += 1));
+              }}
+            >
+              <span className='btn-text'>Next Question</span>
+              <IoIosArrowForward />
+            </button>
+          </div>
+          {/* /button-container */}
         </div>
       </div>
     </>
