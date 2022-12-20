@@ -1,21 +1,42 @@
 import Header from './Header';
-import { nanoid } from 'nanoid';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 export default function Game({ questions, category }) {
+  const [questionsList, setQuestionList] = useState(questions);
   const [answers, setAnswers] = useState([]);
   const [questionIdx, setQuestionIdx] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(
-    questions[questionIdx]
+    questionsList[questionIdx]
   );
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    setCurrentQuestion(questionsList[questionIdx]);
+  }, [questionIdx]);
 
   useEffect(() => {
-    setCurrentQuestion(questions[questionIdx]);
-    console.log(questions.length);
-  }, [questionIdx]);
+    setQuestionList((prevQuestionList) => {
+      let newList = [...prevQuestionList];
+      newList[questionIdx] = currentQuestion;
+      return newList;
+    });
+  }, [currentQuestion]);
+
+  const toggleOptions = (option) => {
+    setCurrentQuestion((prevCurrectQuestion) => {
+      let newOptions = prevCurrectQuestion.options.map((item) =>
+        item.idx === option.idx
+          ? { ...item, selected: !item.selected }
+          : { ...item, selected: false }
+      );
+      return { ...prevCurrectQuestion, options: newOptions };
+    });
+    setAnswers((prevAnswers) => {
+      let newList = [...prevAnswers];
+      newList[questionIdx] = option.name;
+      return newList;
+    });
+  };
 
   return (
     <>
@@ -29,18 +50,16 @@ export default function Game({ questions, category }) {
           <h2 className='question'>{currentQuestion.question}</h2>
 
           <ul className='options'>
-            <li className='option selected'>
-              <div className='radio-dot'></div> Morris Coleman
-            </li>
-            <li className='option'>
-              <div className='radio-dot'></div> Carl Myers
-            </li>
-            <li className='option'>
-              <div className='radio-dot'></div> Maurice Micklewhite
-            </li>
-            <li className='option'>
-              <div className='radio-dot'></div> Martin Michaels
-            </li>
+            {currentQuestion.options.map((option) => (
+              <li
+                className={`option ${option.selected ? 'selected' : ''}`}
+                key={option.id}
+                onClick={() => toggleOptions(option)}
+              >
+                <div className='radio-dot'></div>
+                {option.name}
+              </li>
+            ))}
           </ul>
 
           <div className='button-container'>

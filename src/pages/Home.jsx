@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Game from '../components/Game';
+import { nanoid } from 'nanoid';
 
 export default function Home() {
   const [categoryList, setCategoryList] = useState([]);
@@ -74,7 +75,7 @@ export default function Home() {
   };
 
   // toggle the categoryList state as user selects a category
-  const selectCategory = (id) => {
+  const toggleCategory = (id) => {
     setCategoryList((prevCategories) =>
       prevCategories.map((item) => {
         return item.id === id
@@ -90,13 +91,23 @@ export default function Home() {
     let questionList = [];
     data.map((item) => {
       let rand = Math.ceil(Math.random() * 4);
+      let options = [];
       let option = [...item.incorrect_answers];
-      option.splice(rand, 0, item.correctAns);
+      option.splice(rand, 0, item.correct_answer);
+
+      option.map((item, idx) => {
+        options.push({
+          id: nanoid(),
+          idx: idx,
+          name: item,
+          selected: false,
+        });
+      });
 
       let questionObj = {
         question: htmlDecode(item.question),
         correctAns: item.correct_answer,
-        options: option,
+        options: options,
       };
       questionList.push(questionObj);
     });
@@ -120,7 +131,7 @@ export default function Home() {
                 className={`category ${category.select ? 'select' : ''}`}
                 key={category.id}
                 onClick={() => {
-                  selectCategory(category.id);
+                  toggleCategory(category.id);
                 }}
               >
                 {category.name}
@@ -143,7 +154,7 @@ export default function Home() {
   return (
     <>
       {gameStarted ? (
-        <Game questions={questions} category={selectCategory.name} />
+        <Game questions={questions} category={selectedCategory.name} />
       ) : (
         <HomeScreen />
       )}
