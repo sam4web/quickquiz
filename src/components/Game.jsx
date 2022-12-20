@@ -1,6 +1,7 @@
 import Header from './Header';
 import { useEffect, useState } from 'react';
 import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
+import { AiFillPieChart } from 'react-icons/ai';
 
 export default function Game({ questions, category }) {
   const [questionsList, setQuestionList] = useState(questions);
@@ -22,6 +23,8 @@ export default function Game({ questions, category }) {
     });
   }, [currentQuestion]);
 
+  // useEffect(() => {}, [answers]);
+
   const toggleOptions = (option) => {
     setCurrentQuestion((prevCurrectQuestion) => {
       let newOptions = prevCurrectQuestion.options.map((item) =>
@@ -31,6 +34,7 @@ export default function Game({ questions, category }) {
       );
       return { ...prevCurrectQuestion, options: newOptions };
     });
+
     setAnswers((prevAnswers) => {
       let newList = [...prevAnswers];
       newList[questionIdx] = option.name;
@@ -80,8 +84,17 @@ export default function Game({ questions, category }) {
                 setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx += 1));
               }}
             >
-              <span className='btn-text'>Next Question</span>
-              <IoIosArrowForward />
+              <span className='btn-text'>
+                {questionIdx >= questions.length - 1
+                  ? ' Check Results'
+                  : 'Next Question'}
+              </span>
+
+              {questionIdx >= questions.length - 1 ? (
+                <AiFillPieChart />
+              ) : (
+                <IoIosArrowForward />
+              )}
             </button>
           </div>
           {/* /button-container */}
