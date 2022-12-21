@@ -10,6 +10,7 @@ export default function Game({ questions, category }) {
   const [currentQuestion, setCurrentQuestion] = useState(
     questionsList[questionIdx]
   );
+  const [gameFinished, setgameFinished] = useState(false);
 
   useEffect(() => {
     setCurrentQuestion(questionsList[questionIdx]);
@@ -23,7 +24,9 @@ export default function Game({ questions, category }) {
     });
   }, [currentQuestion]);
 
-  // useEffect(() => {}, [answers]);
+  useEffect(() => {
+    setgameFinished(answers.length >= 10 && !answers.includes(undefined));
+  }, [answers]);
 
   const toggleOptions = (option) => {
     setCurrentQuestion((prevCurrectQuestion) => {
@@ -37,9 +40,17 @@ export default function Game({ questions, category }) {
 
     setAnswers((prevAnswers) => {
       let newList = [...prevAnswers];
-      newList[questionIdx] = option.name;
+      if (newList[questionIdx] !== option.name) {
+        newList[questionIdx] = option.name;
+      } else {
+        newList[questionIdx] = undefined;
+      }
       return newList;
     });
+  };
+
+  const getResult = () => {
+    console.log('game finished');
   };
 
   return (
@@ -77,25 +88,24 @@ export default function Game({ questions, category }) {
               <IoIosArrowBack />
               <span className='btn-text'>Previous Question</span>
             </button>
-            <button
-              className='btn next'
-              disabled={questionIdx >= questions.length - 1}
-              onClick={() => {
-                setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx += 1));
-              }}
-            >
-              <span className='btn-text'>
-                {questionIdx >= questions.length - 1
-                  ? ' Check Results'
-                  : 'Next Question'}
-              </span>
 
-              {questionIdx >= questions.length - 1 ? (
+            {gameFinished && questionIdx >= questions.length - 1 ? (
+              <button className='btn next' onClick={getResult}>
+                <span className='btn-text'>Check Results</span>
                 <AiFillPieChart />
-              ) : (
+              </button>
+            ) : (
+              <button
+                className='btn next'
+                disabled={questionIdx >= questions.length - 1}
+                onClick={() => {
+                  setQuestionIdx((prevQuestionIdx) => (prevQuestionIdx += 1));
+                }}
+              >
+                <span className='btn-text'>Next</span>
                 <IoIosArrowForward />
-              )}
-            </button>
+              </button>
+            )}
           </div>
           {/* /button-container */}
         </div>

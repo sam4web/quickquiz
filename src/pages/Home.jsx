@@ -90,7 +90,7 @@ export default function Home() {
   const filterQuestions = (data) => {
     let questionList = [];
     data.map((item) => {
-      let rand = Math.ceil(Math.random() * 4);
+      let rand = Math.floor(Math.random() * 4);
       let options = [];
       let option = [...item.incorrect_answers];
       option.splice(rand, 0, item.correct_answer);
@@ -99,7 +99,7 @@ export default function Home() {
         options.push({
           id: nanoid(),
           idx: idx,
-          name: item,
+          name: htmlDecode(item),
           selected: false,
         });
       });
