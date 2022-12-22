@@ -1,0 +1,76 @@
+.end-result {
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  background-color: $white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-width: 450px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 40px 10px;
+  font-weight: 700;
+  border-radius: 15px;
+  z-index: 300;
+
+  @include responsive_small {
+    max-width: 300px;
+    padding: 30px 10px;
+  }
+
+  .title {
+    font-size: 30px;
+    line-height: 38px;
+    margin-bottom: 10px;
+    color: $primary-color;
+    text-transform: uppercase;
+
+    @include responsive_medium {
+      font-size: 24px;
+      line-height: 28px;
+    }
+  }
+
+  .text {
+    color: $dark-secondary;
+  }
+
+  .score {
+    font-size: 40px;
+    line-height: 48px;
+    color: $primary-color;
+    padding: 10px 0;
+
+    @include responsive_medium {
+      font-size: 34px;
+      line-height: 38px;
+    }
+  }
+
+  .btn {
+    margin-top: 20px;
+  }
+
+  .redirect-link {
+    background-color: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 16px;
+    margin-top: 13px;
+    cursor: pointer;
+    text-decoration: underline;
+    color: $primary-color;
+
+    &:hover,
+    &:focus {
+      color: $dark;
+    }
+  }
+}
+
+.end-game::before {
+  z-index: 100;
+  background-color: rgba($dark, 0.55);
+}

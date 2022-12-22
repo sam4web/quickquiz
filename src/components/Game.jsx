@@ -10,7 +10,17 @@ export default function Game({ questions, category }) {
   const [currentQuestion, setCurrentQuestion] = useState(
     questionsList[questionIdx]
   );
-  const [gameFinished, setgameFinished] = useState(false);
+  const [answersChecked, setAnswersChecked] = useState(false);
+  const [gameFinished, setGameFinished] = useState(false);
+  const [score, setScore] = useState(0);
+
+  useEffect(() => {
+    if (gameFinished) {
+      document.body.classList.add('end-game');
+    } else {
+      document.body.classList.remove('end-game');
+    }
+  }, [gameFinished]);
 
   useEffect(() => {
     setCurrentQuestion(questionsList[questionIdx]);
@@ -25,7 +35,7 @@ export default function Game({ questions, category }) {
   }, [currentQuestion]);
 
   useEffect(() => {
-    setgameFinished(answers.length >= 10 && !answers.includes(undefined));
+    setAnswersChecked(answers.length >= 10 && !answers.includes(undefined));
   }, [answers]);
 
   const toggleOptions = (option) => {
@@ -50,11 +60,40 @@ export default function Game({ questions, category }) {
   };
 
   const getResult = () => {
-    console.log('game finished');
+    let filteredArr = answers.filter(
+      (answer, idx) => answer === questions[idx].correctAns
+    );
+    let score = filteredArr.length;
+    setScore(score);
+    setGameFinished(true);
   };
+
+  function EndResult({ score }) {
+    document.body.classList.add('end-game');
+    return (
+      <>
+        <div className='end-result'>
+          <h2 className='title'>congratulation</h2>
+          <p className='text'>You answered</p>
+          <div className='score'>{score} / 10</div>
+          <p className='text'>questions correct</p>
+
+          <button
+            className='redirect-link'
+            onClick={() => {
+              window.location.reload(true);
+            }}
+          >
+            Back to home
+          </button>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
+      {gameFinished ? <EndResult score={score} /> : ''}
       <div className='game-section'>
         <Header />
 
@@ -89,7 +128,7 @@ export default function Game({ questions, category }) {
               <span className='btn-text'>Previous Question</span>
             </button>
 
-            {gameFinished && questionIdx >= questions.length - 1 ? (
+            {answersChecked && questionIdx >= questions.length - 1 ? (
               <button className='btn next' onClick={getResult}>
                 <span className='btn-text'>Check Results</span>
                 <AiFillPieChart />

@@ -70,7 +70,7 @@ export default function Home() {
       .then((response) => response.json())
       .then((data) => {
         setQuestions(filterQuestions(data.results));
-        setGameStarted((prevGameStarted) => !prevGameStarted);
+        setGameStarted(true);
       });
   };
 
