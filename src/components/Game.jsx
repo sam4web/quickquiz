@@ -4,6 +4,7 @@ import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 import { AiFillPieChart } from 'react-icons/ai';
 
 export default function Game({ questions, category }) {
+  // states
   const [questionsList, setQuestionList] = useState(questions);
   const [answers, setAnswers] = useState([]);
   const [questionIdx, setQuestionIdx] = useState(0);
@@ -14,6 +15,7 @@ export default function Game({ questions, category }) {
   const [gameFinished, setGameFinished] = useState(false);
   const [score, setScore] = useState(0);
 
+  // change body styles when game is finished and result is shown
   useEffect(() => {
     if (gameFinished) {
       document.body.classList.add('end-game');
@@ -22,10 +24,16 @@ export default function Game({ questions, category }) {
     }
   }, [gameFinished]);
 
+  // change current question
+  // -> change currentQuestion state to new question from questionList
+  // -> changed when the questionIdx state is changed
   useEffect(() => {
     setCurrentQuestion(questionsList[questionIdx]);
   }, [questionIdx]);
 
+  // change question in questionList
+  // -> change question in questionList state to match the currentQuestion
+  // -> changed when a option is selected
   useEffect(() => {
     setQuestionList((prevQuestionList) => {
       let newList = [...prevQuestionList];
@@ -34,10 +42,15 @@ export default function Game({ questions, category }) {
     });
   }, [currentQuestion]);
 
+  // check if all questions are answered
+  // -> checks every time user selects an option
   useEffect(() => {
     setAnswersChecked(answers.length >= 10 && !answers.includes(undefined));
   }, [answers]);
 
+  // changes the state of option in currentQuestion state
+  // -> toggles state of option every time user click one
+  // -> changes state of answers and adds or removes the answer
   const toggleOptions = (option) => {
     setCurrentQuestion((prevCurrectQuestion) => {
       let newOptions = prevCurrectQuestion.options.map((item) =>
@@ -59,6 +72,7 @@ export default function Game({ questions, category }) {
     });
   };
 
+  // check the score and changes gameFinished state to true
   const getResult = () => {
     let filteredArr = answers.filter(
       (answer, idx) => answer === questions[idx].correctAns
@@ -68,6 +82,7 @@ export default function Game({ questions, category }) {
     setGameFinished(true);
   };
 
+  // end card template to show result
   function EndResult({ score }) {
     document.body.classList.add('end-game');
     return (
@@ -146,7 +161,6 @@ export default function Game({ questions, category }) {
               </button>
             )}
           </div>
-          {/* /button-container */}
         </div>
       </div>
     </>

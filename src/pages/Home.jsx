@@ -116,7 +116,7 @@ export default function Home() {
 
   function HomeScreen() {
     return (
-      <div className='home-section'>
+      <section className='home-section'>
         <Header type={'home-page'} />
 
         <div className='section-container'>
@@ -147,7 +147,7 @@ export default function Home() {
             Start Game
           </button>
         </div>
-      </div>
+      </section>
     );
   }
 

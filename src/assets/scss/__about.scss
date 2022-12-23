@@ -1,0 +1,33 @@
+.about-section {
+  position: relative;
+
+  .title {
+    // text-align: left;
+    font-size: 48px;
+    line-height: 54px;
+  }
+
+  .content {
+    margin-top: 30px;
+    margin-left: 30px;
+    max-width: 530px;
+    text-align: justify;
+    padding: 35px 30px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px,
+      rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+
+    @include responsive-small {
+      margin-left: 0;
+    }
+
+    .color,
+    .link {
+      color: $primary-color;
+    }
+
+    .link {
+      text-decoration: underline;
+    }
+  }
+}

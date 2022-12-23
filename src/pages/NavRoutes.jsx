@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from '../components/Header';
-import Game from '../pages/Game';
 import About from '../pages/About';
 import NotFound from '../pages/NotFound';
+import States from './States';
 
 export default function NavRoutes() {
   return (
@@ -10,8 +10,8 @@ export default function NavRoutes() {
       <Navbar />
 
       <Routes>
-        <Route path='game' element={<Game />} />
         <Route path='about' element={<About />} />
+        <Route path='states' element={<States />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
     </>
